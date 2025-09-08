@@ -138,3 +138,5 @@ export const ProductHighlights: React.FC<ProductHighlightsProps> = ({ className 
     </section>
   );
 };
+
+export default ProductHighlights;
