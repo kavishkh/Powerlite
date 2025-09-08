@@ -98,15 +98,19 @@ export default {
 				luxury: 'var(--radius-luxury)',
 				premium: 'var(--radius-premium)'
 			},
-			spacing: {
-				'section': 'var(--section-padding)',
-				'grid': 'var(--grid-gap)',
-				'18': '4.5rem',
-				'88': '22rem',
-				'100': '25rem',
-				'112': '28rem',
-				'128': '32rem'
-			},
+            spacing: {
+                'section-mobile': 'var(--section-padding-mobile)',
+                'section-tablet': 'var(--section-padding-tablet)', 
+                'section-desktop': 'var(--section-padding-desktop)',
+                'grid-mobile': 'var(--grid-gap-mobile)',
+                'grid-tablet': 'var(--grid-gap-tablet)',
+                'grid-desktop': 'var(--grid-gap-desktop)',
+                '18': '4.5rem',
+                '88': '22rem',
+                '100': '25rem',
+                '112': '28rem',
+                '128': '32rem'
+            },
 			transitionTimingFunction: {
 				'luxury': 'cubic-bezier(0.23, 1, 0.32, 1)',
 				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',

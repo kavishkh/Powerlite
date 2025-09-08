@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Powerlite Electricals - Premium Corporate Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
 @layer base {
   :root {
     /* Core Brand Colors */
@@ -76,14 +77,18 @@
     --font-primary: 'Inter', system-ui, sans-serif;
     --font-display: 'Playfair Display', serif;
     
-    /* Spacing & Layout */
+    /* Spacing & Layout - Mobile First */
     --radius: 0.5rem;
     --radius-luxury: 1rem;
     --radius-premium: 0.75rem;
     
     --container-max: 1400px;
-    --section-padding: 5rem;
-    --grid-gap: 2rem;
+    --section-padding-mobile: 2rem;
+    --section-padding-tablet: 3rem;
+    --section-padding-desktop: 5rem;
+    --grid-gap-mobile: 1rem;
+    --grid-gap-tablet: 1.5rem;
+    --grid-gap-desktop: 2rem;
   }
 
   .dark {
@@ -148,15 +153,32 @@
 }
 
 @layer components {
+  /* Mobile-First Responsive Components */
   .luxury-grid {
-    @apply grid gap-grid;
+    @apply grid gap-4 sm:gap-6 lg:gap-8;
   }
   
   .premium-card {
-    @apply bg-card border border-border rounded-luxury p-6 hover:shadow-premium transition-all duration-300;
+    @apply bg-card border border-border rounded-luxury p-4 sm:p-6 hover:shadow-premium transition-all duration-300;
   }
   
   .elegant-section {
-    @apply py-section px-6 lg:px-8;
+    @apply py-8 px-4 sm:py-12 sm:px-6 lg:py-20 lg:px-8;
+  }
+  
+  .responsive-container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .fluid-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8;
+  }
+  
+  .hero-text {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
+  }
+  
+  .responsive-text {
+    @apply text-sm sm:text-base lg:text-lg;
   }
 }
