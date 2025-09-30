@@ -1,176 +1,176 @@
 import { Product } from '@/components/ui/product-card';
 import circuitBreakerImg from '@/assets/product-circuit-breaker.jpg';
 import controlPanelImg from '@/assets/product-control-panel.jpg';
-import safetyImg from '@/assets/product-safety-switch.jpg';
-import smartSwitchImg from '@/assets/product-smart-switch.jpg';
 
 export const products: Product[] = [
   {
     id: '1',
-    name: 'PowerMax Circuit Breaker 50A',
-    category: 'Circuit Breakers',
-    price: 299.99,
-    originalPrice: 349.99,
-    image: circuitBreakerImg,
-    rating: 4.8,
-    reviewCount: 127,
-    description: 'Advanced circuit protection with smart monitoring capabilities and remote diagnostics.',
+    name: 'Power Transformer 500KVA',
+    category: 'Transformers',
+    images: [
+    '/Transformer/Power-transformer/1.jpg',
+    '/Transformer/Power-transformer/2.jpg',
+    '/Transformer/Power-transformer/3.jpg'
+  ],
+    rating: 4.9,
+    reviewCount: 42,
+    description: 'Our 500 kVA Power Transformer ensures high efficiency, superior voltage regulation, and long-term reliability for industrial, commercial, and utility use, with robust construction and low-maintenance performance.',
     features: [
-      'Smart diagnostics with IoT connectivity',
-      'Remote monitoring and alerts',
-      'Energy-efficient design',
-      'Arc fault protection',
-      '50A capacity with overload protection'
+      '500KVA capacity rating',
+      'High-efficiency core design',
+      'Temperature monitoring system',
+      'Surge protection capabilities',
+      'Three-phase configuration'
     ],
-    inStock: true,
     badge: 'Best Seller'
   },
   {
-    id: '2', 
-    name: 'Industrial Control Panel Pro',
-    category: 'Control Panels',
-    price: 1299.99,
-    image: controlPanelImg,
-    rating: 4.9,
-    reviewCount: 89,
-    description: 'Comprehensive automation solution for industrial applications with touchscreen interface.',
-    features: [
-      'High-resolution touchscreen display',
-      'Real-time data monitoring',
-      'Scalable modular design',
-      'Industrial-grade components',
-      'Ethernet and wireless connectivity'
+    id: '2',
+    name: 'Distribution Transformer 100 kVA',
+    category: 'Transformers',
+    images: [
+      '/Transformer/distribution-transformer/1.jpg',
+      '/Transformer/distribution-transformer/2.jpg',
+      '/Transformer/distribution-transformer/3.jpg'
     ],
-    inStock: true,
-    badge: 'Professional'
+    rating: 4.7,
+    reviewCount: 38,
+    description: 'Our 100 kVA Distribution Transformer delivers reliable power for residential, commercial, and small industrial use, ensuring durability and low maintenance.',
+    features: [
+      '100 kVA capacity with robust performance',
+      'Low-loss, energy-efficient design compliant with IS 1180',
+      'Silent operation with minimal noise levels',
+      'Weatherproof and hermetically sealed enclosure for durability',
+      'Copper or Aluminum wound options',
+      'Corrugated cooling fins for effective heat dissipation',
+      'Easy installation and low maintenance requirements'
+    ],
+    badge: 'Popular'
   },
   {
     id: '3',
-    name: 'SafeGuard Emergency Switch',
-    category: 'Safety Systems', 
-    price: 199.99,
-    originalPrice: 249.99,
-    image: safetyImg,
-    rating: 4.7,
-    reviewCount: 203,
-    description: 'Emergency safety switch with instant shutdown capabilities for industrial environments.',
-    features: [
-      'Emergency shutdown system',
-      'IP67 weatherproof rating',
-      'Tamper-resistant design',
-      'LED status indicators',
-      'Compliance ready certification'
+    name: 'Furnace Transformer 750KVA',
+    category: 'Transformers',
+    images: [
+      '/Transformer/Furnance-Transformer/1.jpg',
+      '/Transformer/Furnance-Transformer/2.jpg',
+      '/Transformer/Furnance-Transformer/3.jpg'
     ],
-    inStock: true
+    rating: 4.8,
+    reviewCount: 29,
+    description: 'Our 750 kVA Furnace Transformer provides reliable, stable power for industrial heating and melting, offering high current capacity, durable construction, and minimal maintenance needs.',
+    features: [
+      '750 kVA power rating with high thermal stability',
+      'Wide voltage regulation for furnace operations',
+      'Rugged design for heavy industrial use',
+      'Overload and short-circuit protection',
+      'LV terminals with or without water cooling options'
+    ]
   },
   {
     id: '4',
-    name: 'SmartHome Touch Panel',
-    category: 'Smart Switches',
-    price: 149.99,
-    image: smartSwitchImg,
-    rating: 4.6,
-    reviewCount: 156,
-    description: 'Premium smart switch panel with voice control and mobile app integration.',
-    features: [
-      'Touch-sensitive interface',
-      'Voice control compatibility',
-      'Mobile app integration',
-      'Premium glass finish',
-      'Dimmer functionality'
+    name: 'Rectifier Transformer 300KVA',
+    category: 'Transformers',
+    images: [ '/Transformer/Rectifier-transformer/1.jpg', 
+            '/Transformer/Rectifier-transformer/2.jpg', 
+            '/Transformer/Rectifier-transformer/3.jpg' 
     ],
-    inStock: false
+    rating: 4.6,
+    reviewCount: 24,
+    description: 'Our 300 kVA Rectifier Transformer ensures reliable AC-DC conversion with high current capacity, harmonic control, and efficient performance for applications like electrolysis, aluminium smelting, and graphitizing.',
+    features: [
+      '300 kVA Power Rating',
+      '230V - 440V Voltage Class',
+      '50 / 60 Hz Frequency',
+      '50A / 100A Current Rating (customizable)',
+      'ONAN / ONAF Cooling Method',
+      'IP65 Rated Protection'
+    ]
   },
   {
     id: '5',
-    name: 'PowerMax Circuit Breaker 100A',
-    category: 'Circuit Breakers',
-    price: 449.99,
-    originalPrice: 499.99,
-    image: circuitBreakerImg,
-    rating: 4.9,
-    reviewCount: 78,
-    description: 'Heavy-duty circuit breaker for high-capacity industrial applications.',
-    features: [
-      '100A capacity rating',
-      'Enhanced arc fault protection',
-      'Digital monitoring display',
-      'Remote control capability',
-      'Extended warranty coverage'
+    name: 'Speciality Transformer',
+    category: 'Transformers',
+    images: [
+      '/Transformer/Speciality Transformer/1.jpg',
+      '/Transformer/Speciality Transformer/2.jpg',
+      '/Transformer/Speciality Transformer/3.jpg'
     ],
-    inStock: true,
-    badge: 'Heavy Duty'
+    rating: 4.9,
+    reviewCount: 18,
+    description: 'Specialty Transformers are designed for unique applications with tailored electrical characteristics and precision engineering. Built to client specifications, they deliver reliable performance, safety, and efficiency where standard transformers aren\'t enough.',
+    features: [
+      '500 kVA Power Rating',
+      '230V - 440V Voltage Class',
+      '50 / 60 Hz Frequency',
+      '50A / 100A Current Rating',
+      'Copper or Aluminum Winding Material',
+      'ONAN / ONAF Cooling Method'
+    ]
   },
   {
     id: '6',
-    name: 'Compact Control Panel',
-    category: 'Control Panels',
-    price: 699.99,
-    image: controlPanelImg,
-    rating: 4.5,
-    reviewCount: 134,
-    description: 'Space-efficient control panel perfect for smaller commercial installations.',
-    features: [
-      'Compact design footprint',
-      'Multi-zone control',
-      'LED status indicators',
-      'Easy installation system',
-      'Cost-effective solution'
+    name: 'Reactors 150KVAR',
+    category: 'Transformers',
+    images: [
+      '/Transformer/Reactor/1.jpg',
+      '/Transformer/Reactor/2.jpg'
     ],
-    inStock: true
+    rating: 4.5,
+    reviewCount: 33,
+    description: 'Our 150 kVAR Reactors enhance power factor correction and harmonic filtering, improving efficiency and stability in industrial and commercial networks with compact, robust, and customizable designs.',
+    features: [
+      '150 kVAR Power Rating',
+      '230V – 440V Voltage Class',
+      '50 / 60 Hz Frequency',
+      '50A / 100A Current Rating (customizable)',
+      'ONAN / ONAF Cooling Method',
+      'IP65 Rated Protection'
+    ]
   },
   {
-    id: '7',
-    name: 'Industrial Safety Hub',
-    category: 'Safety Systems',
-    price: 899.99,
-    image: safetyImg,
-    rating: 4.8,
-    reviewCount: 67,
-    description: 'Comprehensive safety management system for large industrial facilities.',
+    id: '7', 
+    name: 'Instrument Transformer',
+    category: 'Switch Gears',
+    images: ['/Transformer/Instrument Transformer/1.jpg', '/Transformer/Instrument Transformer/2.jpg', '/Transformer/Instrument Transformer/3.jpg'],
+    rating: 4.7,
+    reviewCount: 32,
+    description: 'High-precision transformers for accurate measurement and protection in medium to high voltage systems. Oil-immersed and IEC/IS compliant for reliable, long-term performance.',
     features: [
-      'Multi-zone safety monitoring',
-      'Centralized alarm system',
-      'Redundant safety protocols',
-      'Integration with existing systems',
-      'Professional installation included'
-    ],
-    inStock: true,
-    badge: 'Enterprise'
+      'High accuracy classes: Metering, Protection, Special Protection',
+      'Hermetically sealed oil-filled design for durability',
+      'Low phase angle error & thermal stability',
+      'Burden capacity up to 50 VA',
+      'Outdoor oil-cooled, dead tank type construction',
+      'Available in Single, Dual, or Multi-ratio winding arrangements'
+    ]
   },
   {
     id: '8',
-    name: 'Luxury Switch Collection',
-    category: 'Smart Switches',
-    price: 89.99,
-    originalPrice: 119.99,
-    image: smartSwitchImg,
-    rating: 4.4,
-    reviewCount: 289,
-    description: 'Designer electrical switches with premium materials and elegant finish.',
+    name: 'Condenser Bushing',
+    category: 'Switch Gears',
+    images: ['/Transformer/Condenser Bushing/1.jpg', '/Transformer/Condenser Bushing/2.jpg'],
+    rating: 4.6,
+    reviewCount: 28,
+    description: 'Reliable condenser bushings for transformers and switchgear. Built with oil-impregnated paper insulation and corona-free design for superior dielectric strength, durability, and long service life.',
     features: [
-      'Premium metal construction',
-      'Soft-touch operation',
-      'Multiple finish options',
-      'Designer aesthetic',
-      'Easy retrofit installation'
-    ],
-    inStock: true
+      'Oil-impregnated paper insulation',
+      'Corona-free design',
+      'Low dielectric loss',
+      'High mechanical strength',
+      'Temperature class B insulation'
+    ]
   }
 ];
 
 export const categories = [
   'All Products',
-  'Circuit Breakers',
-  'Control Panels',
-  'Safety Systems',
-  'Smart Switches'
+  'Transformers',
+  'Switch Gears'
 ];
 
 export const sortOptions = [
   { value: 'name', label: 'Name A-Z' },
-  { value: 'price-low', label: 'Price: Low to High' },
-  { value: 'price-high', label: 'Price: High to Low' },
   { value: 'rating', label: 'Highest Rated' },
   { value: 'newest', label: 'Newest First' }
 ];

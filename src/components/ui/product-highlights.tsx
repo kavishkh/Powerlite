@@ -12,30 +12,16 @@ export const ProductHighlights: React.FC<ProductHighlightsProps> = ({ className 
   const products = [
     {
       icon: Zap,
-      title: "Circuit Breakers",
-      description: "Advanced protection systems with smart monitoring capabilities",
-      features: ["Smart diagnostics", "Remote monitoring", "Energy efficient"],
+      title: "Transformers",
+      description: "Advanced power distribution with intelligent monitoring and superior voltage regulation",
+      features: ["High-efficiency core design", "Temperature monitoring system", "Surge protection capabilities"],
       image: productsImage
     },
     {
       icon: Settings,
-      title: "Control Panels",
-      description: "Custom automation solutions for industrial applications", 
-      features: ["IoT integration", "Real-time data", "Scalable design"],
-      image: productsImage
-    },
-    {
-      icon: Shield,
-      title: "Safety Systems",
-      description: "Comprehensive electrical safety and protection equipment",
-      features: ["Emergency shutdown", "Arc fault protection", "Compliance ready"],
-      image: productsImage
-    },
-    {
-      icon: Award,
-      title: "Premium Switches",
-      description: "Designer electrical switches for modern buildings",
-      features: ["Touch interface", "Voice control", "Premium materials"],
+      title: "Switch gears",
+      description: "Advanced protection and control for modern power systems", 
+      features: ["High fault tolerance", "Compact design", "Enhanced safety interlocks"],
       image: productsImage
     }
   ];

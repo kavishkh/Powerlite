@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from './button';
-import { CartIcon } from './cart-icon';
 import { cn } from '@/lib/utils';
 
 interface HeaderProps {
@@ -11,11 +10,11 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const navigationItems = [
-    { name: 'Products', href: '/Products' },
-    { name: 'Projects', href: '/Projects' },
-    { name: 'About', href: '/About' },
-    { name: 'Blog', href: '/Blog' },
-    { name: 'Contact', href: '/Contact' }
+    { name: 'Products', href: '/products' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'About', href: '/about' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Contact', href: '/contact' }
   ];
 
   return (
@@ -52,7 +51,6 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
-            <CartIcon />
             <Button variant="ghost" size="sm" className="hidden xl:flex" asChild>
               <a href="/get-quote">Get Quote</a>
             </Button>
@@ -63,7 +61,6 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-2 lg:hidden">
-            <CartIcon className="sm:hidden" />
             <button
               className="p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -105,7 +102,6 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
                 </a>
               ))}
               <div className="flex flex-col space-y-3 pt-4 border-t border-border/50">
-                <CartIcon className="self-start hidden sm:flex" />
                 <Button variant="ghost" size="sm" className="self-start" asChild>
                   <a href="/get-quote">Get Quote</a>
                 </Button>

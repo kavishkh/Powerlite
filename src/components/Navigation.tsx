@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, Search } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useCart } from '@/context/CartContext';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { state } = useCart();
 
   const navItems = [
     { label: 'Home', href: '/' },
@@ -56,16 +54,6 @@ const Navigation = () => {
             <Button variant="ghost" size="sm" className="p-2">
               <Search className="h-4 w-4" />
             </Button>
-            <Link to="/cart">
-              <Button variant="ghost" size="sm" className="relative p-2">
-                <ShoppingCart className="h-4 w-4" />
-                {state.itemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-electric text-electric-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {state.itemCount}
-                  </span>
-                )}
-              </Button>
-            </Link>
 
             {/* Mobile menu button */}
             <Button

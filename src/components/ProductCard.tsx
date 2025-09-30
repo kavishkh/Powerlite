@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Star, ShoppingCart, Eye, Heart } from 'lucide-react';
+import { Star, Eye, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useCart } from '@/context/CartContext';
 
 interface Product {
   id: string;
   name: string;
   category: string;
   price: number;
-  image: string;
+  image?: string; // Make image optional
+  images?: string[]; // Add optional images array
   rating: number;
   reviews: number;
   badge?: string;
@@ -22,18 +22,6 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) => {
-  const { addItem } = useCart();
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    addItem({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      category: product.category,
-    });
-  };
 
   const getBadgeVariant = (badge: string) => {
     switch (badge) {
@@ -57,9 +45,9 @@ const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) => {
           {/* Image */}
           <div className="relative w-full md:w-48 h-48 bg-muted rounded-lg overflow-hidden">
             <img 
-              src={product.image} 
+              src={product.images ? product.images[0] : (product.image || '')} 
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
             {product.badge && (
               <Badge 
@@ -119,10 +107,6 @@ const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) => {
                     View Details
                   </Button>
                 </Link>
-                <Button onClick={handleAddToCart} size="sm">
-                  <ShoppingCart className="h-4 w-4 mr-2" />
-                  Add to Cart
-                </Button>
               </div>
             </div>
           </div>
@@ -136,9 +120,9 @@ const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) => {
       {/* Image */}
       <div className="relative h-64 bg-muted overflow-hidden">
         <img 
-          src={product.image} 
+          src={product.images ? product.images[0] : (product.image || '')} 
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
         />
         {product.badge && (
           <Badge 
@@ -164,10 +148,6 @@ const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) => {
               Quick View
             </Button>
           </Link>
-          <Button onClick={handleAddToCart} size="sm">
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            Add to Cart
-          </Button>
         </div>
       </div>
 
@@ -202,13 +182,12 @@ const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) => {
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="text-xl font-bold">
-            ${product.price.toLocaleString()}
-          </div>
-          <Button onClick={handleAddToCart} size="sm">
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            Add to Cart
-          </Button>
+          <Link to={`/products/${product.id}`}>
+            <Button size="sm">
+              <Eye className="h-4 w-4 mr-2" />
+              View Details
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

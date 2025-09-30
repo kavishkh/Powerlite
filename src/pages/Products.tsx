@@ -1,19 +1,18 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Header } from '@/components/ui/header';
 import { Footer } from '@/components/ui/footer';
 import { ProductCard } from '@/components/ui/product-card';
 import { Button } from '@/components/ui/button';
-import { useCart } from '@/hooks/use-cart';
 import { products, categories, sortOptions } from '@/data/products';
 import { cn } from '@/lib/utils';
 import { Filter, Grid, List, Search } from 'lucide-react';
 
 const Products = () => {
-  const { addToCart } = useCart();
   const [selectedCategory, setSelectedCategory] = useState('All Products');
   const [sortBy, setSortBy] = useState('name');
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [visibleProducts, setVisibleProducts] = useState<Set<string>>(new Set());
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
@@ -35,10 +34,6 @@ const Products = () => {
     // Sort products
     return filtered.sort((a, b) => {
       switch (sortBy) {
-        case 'price-low':
-          return a.price - b.price;
-        case 'price-high':
-          return b.price - a.price;
         case 'rating':
           return b.rating - a.rating;
         case 'newest':
@@ -49,13 +44,44 @@ const Products = () => {
     });
   }, [selectedCategory, searchQuery, sortBy]);
 
-  const handleAddToCart = (product: any) => {
-    addToCart(product);
-  };
-
   const handleViewDetails = (product: any) => {
     window.location.href = `/products/${product.id}`;
   };
+
+  // Intersection Observer for scroll animations
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    // Create observer if it doesn't exist
+    if (!observer.current) {
+      observer.current = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const productId = entry.target.getAttribute('data-product-id');
+            if (productId) {
+              setVisibleProducts(prev => new Set(prev).add(productId));
+            }
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+    }
+
+    // Observe all product cards
+    const productCards = document.querySelectorAll('.product-card-animate');
+    productCards.forEach(card => {
+      observer.current?.observe(card);
+    });
+
+    // Cleanup
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
+  }, [filteredProducts]);
 
   return (
     <div className="min-h-screen">
@@ -63,13 +89,13 @@ const Products = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-subtle">
+        <section className="py-16 bg-gradient-subtle animate-fade-in">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="text-center animate-fade-in">
-              <h1 className="font-display text-5xl lg:text-6xl font-bold text-foreground mb-6">
+            <div className="text-center animate-fade-in-up">
+              <h1 className="font-display text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-in-up">
                 Premium Products
               </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-fade-in-up-delayed">
                 Discover our comprehensive range of electrical solutions designed for excellence, 
                 reliability, and innovation in every application.
               </p>
@@ -185,28 +211,35 @@ const Products = () => {
                 {filteredProducts.map((product, index) => (
                   <div 
                     key={product.id}
-                    className="animate-fade-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    data-product-id={product.id}
+                    className={`product-card-animate flex transition-all duration-700 ease-out ${
+                      visibleProducts.has(product.id) 
+                        ? 'opacity-100 translate-y-0 scale-100' 
+                        : 'opacity-0 translate-y-8 scale-95'
+                    }`}
+                    style={{ 
+                      transitionDelay: `${index * 0.1}s`,
+                      willChange: 'transform, opacity'
+                    }}
                   >
                     <ProductCard
                       product={product}
-                      onAddToCart={handleAddToCart}
                       onQuickView={handleViewDetails}
-                      className={viewMode === 'list' ? 'flex flex-row' : ''}
+                      className={viewMode === 'list' ? 'flex flex-row flex-grow' : 'flex-grow'}
                     />
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Load More Button (for future pagination) */}
+            {/* Load More Button (for future pagination)
             {filteredProducts.length >= 8 && (
               <div className="text-center mt-12">
                 <Button variant="outline" size="lg">
                   Load More Products
                 </Button>
               </div>
-            )}
+            )} */}
 
           </div>
         </section>
@@ -225,7 +258,7 @@ const Products = () => {
               <Button 
                 variant="outline" 
                 size="lg"
-                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                className="border-primary-foreground/30 text-black hover:bg-primary-foreground/10"
               >
                 Request Quote
               </Button>

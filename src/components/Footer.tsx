@@ -8,10 +8,8 @@ const Footer = () => {
 
   const footerLinks = {
     products: [
-      { label: 'Circuit Breakers', href: '/products?category=circuit-breakers' },
-      { label: 'Switchgear', href: '/products?category=switchgear' },
-      { label: 'Control Panels', href: '/products?category=control-panels' },
       { label: 'Transformers', href: '/products?category=transformers' },
+      { label: 'Switch Gears', href: '/products?category=switch-gears' },
     ],
     company: [
       { label: 'About Us', href: '/about' },

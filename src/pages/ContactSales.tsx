@@ -35,7 +35,7 @@ const ContactSales = () => {
       region: 'North America',
       email: 'sarah.johnson@powerlite.com',
       phone: '+1 (555) 123-4567',
-      image: '/src/assets/hero-electrical.jpg'
+      image: '@/assets/hero-electrical.jpg'
     },
     {
       name: 'Michael Chen',
@@ -43,7 +43,7 @@ const ContactSales = () => {
       region: 'Asia Pacific',
       email: 'michael.chen@powerlite.com',
       phone: '+65 8234-5678',
-      image: '/src/assets/hero-electrical.jpg'
+      image: '@/assets/hero-electrical.jpg'
     },
     {
       name: 'Emma Rodriguez',
@@ -51,7 +51,7 @@ const ContactSales = () => {
       region: 'Europe & MENA',
       email: 'emma.rodriguez@powerlite.com',
       phone: '+44 20 7123-4567',
-      image: '/src/assets/hero-electrical.jpg'
+      image: '@/assets/hero-electrical.jpg'
     }
   ];
 

@@ -1,48 +1,40 @@
 import React from 'react';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
-import { ShoppingCart, Star, Eye, Heart } from 'lucide-react';
+import { Eye, Heart } from 'lucide-react';
 
 export interface Product {
   id: string;
   name: string;
   category: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
+  image?: string;
+  images?: string[];
   rating: number;
   reviewCount: number;
   description: string;
   features: string[];
-  inStock: boolean;
   badge?: string;
 }
 
 interface ProductCardProps {
   product: Product;
   className?: string;
-  onAddToCart: (product: Product) => void;
   onQuickView?: (product: Product) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
   className, 
-  onAddToCart,
   onQuickView 
 }) => {
   const [isWishlisted, setIsWishlisted] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
-  const discountPercentage = product.originalPrice 
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : null;
-
   return (
     <div 
       className={cn(
-        "group relative bg-card border border-border rounded-luxury overflow-hidden hover:shadow-premium transition-all duration-500",
-        "hover:-translate-y-1 sm:hover:-translate-y-2",
+        "group relative bg-card border border-border rounded-luxury overflow-hidden hover:shadow-premium transition-all duration-500 flex flex-col h-full transform-gpu",
+        "hover:-translate-y-2 sm:hover:-translate-y-3",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -52,26 +44,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {/* Product Image */}
       <div className="relative aspect-square overflow-hidden bg-subtle">
         <img 
-          src={product.image}
+          src={product.images ? product.images[0] : (product.image || '')}
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-contain transition-all duration-700 group-hover:scale-110 transform-gpu"
         />
         
         {/* Badges */}
         <div className="absolute top-2 sm:top-4 left-2 sm:left-4 flex flex-col gap-1 sm:gap-2">
           {product.badge && (
-            <span className="bg-gradient-accent text-accent-foreground px-2 sm:px-3 py-1 rounded-full text-xs font-semibold">
+            <span className="bg-gradient-accent text-accent-foreground px-2 sm:px-3 py-1 rounded-full text-xs font-semibold animate-pulse">
               {product.badge}
-            </span>
-          )}
-          {discountPercentage && (
-            <span className="bg-destructive text-destructive-foreground px-2 sm:px-3 py-1 rounded-full text-xs font-semibold">
-              -{discountPercentage}%
-            </span>
-          )}
-          {!product.inStock && (
-            <span className="bg-muted text-muted-foreground px-2 sm:px-3 py-1 rounded-full text-xs font-semibold">
-              Out of Stock
             </span>
           )}
         </div>
@@ -100,26 +82,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </button>
           )}
         </div>
-
-        {/* Quick Add to Cart - Hidden on mobile */}
-        <div className={cn(
-          "absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 transition-all duration-300 hidden sm:block",
-          isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        )}>
-          <Button
-            onClick={() => onAddToCart(product)}
-            disabled={!product.inStock}
-            className="w-full bg-primary/90 backdrop-blur-sm hover:bg-primary text-xs sm:text-sm"
-            size="sm"
-          >
-            <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
-            Add to Cart
-          </Button>
-        </div>
       </div>
 
       {/* Product Info */}
-      <div className="p-3 sm:p-4 lg:p-6">
+      <div className="p-3 sm:p-4 lg:p-6 flex flex-col flex-grow">
         
         {/* Category */}
         <div className="text-xs font-medium text-accent uppercase tracking-wide mb-1 sm:mb-2">
@@ -135,32 +101,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
           <div className="flex items-center">
             {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={cn(
-                  "h-3 w-3 sm:h-4 sm:w-4",
-                  i < Math.floor(product.rating) 
-                    ? "text-yellow-400 fill-current" 
-                    : "text-muted-foreground"
+              <React.Fragment key={i}>
+                {i < Math.floor(product.rating) ? (
+                  <span className="text-yellow-400">★</span>
+                ) : (
+                  <span className="text-muted-foreground">☆</span>
                 )}
-              />
+              </React.Fragment>
             ))}
           </div>
           <span className="text-xs sm:text-sm text-muted-foreground">
             ({product.reviewCount})
           </span>
-        </div>
-
-        {/* Price */}
-        <div className="flex items-center gap-2 mb-3 sm:mb-4">
-          <span className="text-lg sm:text-xl font-bold text-foreground">
-            ${product.price.toFixed(2)}
-          </span>
-          {product.originalPrice && (
-            <span className="text-xs sm:text-sm text-muted-foreground line-through">
-              ${product.originalPrice.toFixed(2)}
-            </span>
-          )}
         </div>
 
         {/* Description - Hidden on mobile */}
@@ -169,7 +121,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </p>
 
         {/* Features - Show fewer on mobile */}
-        <div className="space-y-1 mb-3 sm:mb-4">
+        <div className="space-y-1 mb-3 sm:mb-4 flex-grow">
           {product.features.slice(0, window.innerWidth < 640 ? 1 : 2).map((feature, index) => (
             <div key={index} className="flex items-center text-xs text-muted-foreground">
               <div className="w-1 h-1 bg-accent rounded-full mr-2 flex-shrink-0" />
@@ -179,25 +131,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-auto">
           <Button
             variant="outline"
             size="sm"
-            className="flex-1 text-xs sm:text-sm"
+            className="flex-1 text-xs sm:text-sm group-hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
             onClick={() => onQuickView?.(product)}
           >
             <span className="hidden sm:inline">View Details</span>
             <span className="sm:hidden">Details</span>
-          </Button>
-          <Button
-            onClick={() => onAddToCart(product)}
-            disabled={!product.inStock}
-            size="sm"
-            className="flex-1 text-xs sm:text-sm"
-          >
-            <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-            <span className="hidden sm:inline">Add to Cart</span>
-            <span className="sm:hidden">Add</span>
           </Button>
         </div>
 

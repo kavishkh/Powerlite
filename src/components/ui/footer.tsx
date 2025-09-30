@@ -26,11 +26,8 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
   ];
 
   const productCategories = [
-    { name: 'Circuit Breakers', href: '/products/circuit-breakers' },
-    { name: 'Control Panels', href: '/products/control-panels' },
-    { name: 'Safety Systems', href: '/products/safety-systems' },
-    { name: 'Smart Switches', href: '/products/switches' },
-    { name: 'LED Solutions', href: '/products/led' }
+    { name: 'Transformers', href: '/products/transformers' },
+    { name: 'Switch Gears', href: '/products/switch-gears' }
   ];
 
   const support = [

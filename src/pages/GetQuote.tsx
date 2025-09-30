@@ -24,8 +24,8 @@ const GetQuote = () => {
     'Industrial Automation',
     'Commercial Electrical',
     'Residential Systems',
-    'Control Panel Design',
-    'Safety Systems',
+    'Transformers',
+    'Switch Gears',
     'Smart Building Solutions',
     'Custom Engineering'
   ];

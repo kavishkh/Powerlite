@@ -11,7 +11,6 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
-import Cart from "./pages/Cart";
 import Blog from "./pages/Blog";
 import GetQuote from "./pages/GetQuote";
 import ContactSales from "./pages/ContactSales"; // ✅ Fixed casing
@@ -32,7 +31,6 @@ const App = () => (
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<Cart />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/get-quote" element={<GetQuote />} />
           <Route path="/contact-sales" element={<ContactSales />} />

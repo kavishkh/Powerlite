@@ -14,7 +14,7 @@ const blogPosts = [
     date: '2024-01-15',
     readTime: '8 min read',
     category: 'Technology',
-    image: '/src/assets/hero-electrical.jpg',
+    image: '@/assets/hero-electrical.jpg',
     featured: true
   },
   {
@@ -25,7 +25,7 @@ const blogPosts = [
     date: '2024-01-10',
     readTime: '12 min read',
     category: 'Safety',
-    image: '/src/assets/product-circuit-breaker.jpg'
+    image: '@/assets/product-circuit-breaker.jpg'
   },
   {
     id: '3',
@@ -35,7 +35,7 @@ const blogPosts = [
     date: '2024-01-05',
     readTime: '6 min read',
     category: 'Design',
-    image: '/src/assets/product-control-panel.jpg'
+    image: '@/assets/product-control-panel.jpg'
   },
   {
     id: '4',
@@ -45,7 +45,7 @@ const blogPosts = [
     date: '2024-01-01',
     readTime: '10 min read',
     category: 'Maintenance',
-    image: '/src/assets/product-safety-switch.jpg'
+    image: '@/assets/product-safety-switch.jpg'
   },
   {
     id: '5',
@@ -55,7 +55,7 @@ const blogPosts = [
     date: '2023-12-28',
     readTime: '7 min read',
     category: 'Smart Home',
-    image: '/src/assets/product-smart-switch.jpg'
+    image: '@/assets/product-smart-switch.jpg'
   },
   {
     id: '6',
@@ -65,7 +65,7 @@ const blogPosts = [
     date: '2023-12-20',
     readTime: '9 min read',
     category: 'Sustainability',
-    image: '/src/assets/company-building.jpg'
+    image: '@/assets/company-building.jpg'
   }
 ];
 
