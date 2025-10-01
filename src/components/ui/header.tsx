@@ -11,9 +11,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
 
   const navigationItems = [
     { name: 'Products', href: '/products' },
-    { name: 'Projects', href: '/projects' },
     { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' }
   ];
 

@@ -169,7 +169,7 @@ const Contact = () => {
                           value={formData.name}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-accent"
-                          placeholder="John Doe"
+                          placeholder="Full Name"
                         />
                       </div>
                       <div>
@@ -183,7 +183,7 @@ const Contact = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-accent"
-                          placeholder="john@company.com"
+                          placeholder="Email Address"
                         />
                       </div>
                     </div>
@@ -213,7 +213,7 @@ const Contact = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-accent"
-                          placeholder="+1 (555) 123-4567"
+                          placeholder="Phone Number"
                         />
                       </div>
                     </div>
