@@ -3,12 +3,15 @@ import { Button } from './button';
 import { cn } from '@/lib/utils';
 import productsImage from '@/assets/products-showcase.jpg';
 import { Zap, Shield, Settings, Award, ArrowRight } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 interface ProductHighlightsProps {
   className?: string;
 }
 
 export const ProductHighlights: React.FC<ProductHighlightsProps> = ({ className }) => {
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
+  
   const products = [
     {
       icon: Zap,
@@ -27,14 +30,18 @@ export const ProductHighlights: React.FC<ProductHighlightsProps> = ({ className 
   ];
 
   return (
-    <section className={cn(
-      "elegant-section bg-subtle",
-      className
-    )}>
+    <section 
+      ref={ref}
+      className={cn(
+        "elegant-section bg-subtle transition-all duration-700",
+        className,
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      )}
+    >
       <div className="responsive-container">
         
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
+        <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
             Premium Solutions
           </h2>
@@ -51,8 +58,13 @@ export const ProductHighlights: React.FC<ProductHighlightsProps> = ({ className 
             return (
               <div
                 key={index}
-                className="group bg-card rounded-luxury p-4 sm:p-6 lg:p-8 border border-border hover:shadow-premium transition-all duration-500 hover:-translate-y-2 animate-fade-up"
-                style={{ animationDelay: `${index * 0.15}s` }}
+                className="group bg-card rounded-luxury p-4 sm:p-6 lg:p-8 border border-border hover:shadow-premium transition-all duration-500 hover:-translate-y-2"
+                style={{ 
+                  transitionDelay: `${index * 150}ms`,
+                  transitionProperty: 'opacity, transform',
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
+                }}
               >
                 <div className="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
                   <div className="flex-shrink-0 self-center sm:self-start">
@@ -98,7 +110,7 @@ export const ProductHighlights: React.FC<ProductHighlightsProps> = ({ className 
         </div>
 
         {/* CTA Section */}
-        <div className="text-center bg-gradient-primary rounded-luxury p-6 sm:p-8 lg:p-12 animate-fade-in">
+        <div className="text-center bg-gradient-primary rounded-luxury p-6 sm:p-8 lg:p-12">
           <h3 className="font-display text-2xl sm:text-3xl font-bold text-primary-foreground mb-3 sm:mb-4">
             Ready to Power Your Project?
           </h3>

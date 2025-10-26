@@ -3,6 +3,7 @@ import { HeroSection } from '@/components/ui/hero-section';
 import { ProductHighlights } from '@/components/ui/product-highlights';
 import { BrandValues } from '@/components/ui/brand-values';
 import { Footer } from '@/components/ui/footer';
+import { ScrollAnimation } from '@/components/ui/scroll-animation';
 
 const Index = () => {
   return (
@@ -10,8 +11,20 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <ProductHighlights />
-        <BrandValues />
+        
+        <ScrollAnimation 
+          animationClass="animate-fade-in-up"
+          delay={200}
+        >
+          <ProductHighlights />
+        </ScrollAnimation>
+        
+        <ScrollAnimation 
+          animationClass="animate-slide-up"
+          delay={300}
+        >
+          <BrandValues />
+        </ScrollAnimation>
       </main>
       <Footer />
     </div>

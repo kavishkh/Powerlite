@@ -13,8 +13,10 @@ import {
   Users,
   Building2
 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,6 +26,7 @@ const Contact = () => {
     message: '',
     inquiryType: 'general'
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -32,11 +35,76 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // You could show a success message or handle the submission
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/contact/general', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      // Check if response is JSON before parsing
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const textResponse = await response.text();
+        console.error('Non-JSON response received:', textResponse);
+        throw new Error(`Server returned non-JSON response. Status: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        toast({
+          title: "Message Sent Successfully",
+          description: "Thank you for contacting us. We'll get back to you soon.",
+        });
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          phone: '',
+          subject: '',
+          message: '',
+          inquiryType: 'general'
+        });
+      } else {
+        toast({
+          title: "Error Sending Message",
+          description: result.message || "Failed to send message. Please try again.",
+          variant: "destructive"
+        });
+        console.error('Server error:', result);
+      }
+    } catch (error: any) {
+      let errorMessage = "Failed to send message. Please check your connection and try again.";
+      
+      if (error instanceof SyntaxError && error.message.includes('Unexpected end of JSON input')) {
+        errorMessage = "Network error: Unexpected end of JSON input. The server may be down or returning an error page.";
+      } else if (error instanceof TypeError) {
+        if (error.message.includes('fetch')) {
+          errorMessage = "Network error: Unable to connect to the server. Please ensure the backend is running.";
+        } else if (error.message.includes('Failed to fetch')) {
+          errorMessage = "Connection failed: Please check your internet connection and try again.";
+        }
+      } else if (error instanceof Error) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
+      toast({
+        title: "Network Error",
+        description: errorMessage,
+        variant: "destructive"
+      });
+      console.error('Network error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -251,9 +319,24 @@ const Contact = () => {
                     </div>
 
                     {/* Submit Button */}
-                    <Button type="submit" variant="luxury" size="lg" className="w-full">
-                      <Send className="mr-2 h-5 w-5" />
-                      Send Message
+                    <Button 
+                      type="submit" 
+                      variant="luxury" 
+                      size="lg" 
+                      className="w-full"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></div>
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-5 w-5" />
+                          Send Message
+                        </>
+                      )}
                     </Button>
 
                   </form>

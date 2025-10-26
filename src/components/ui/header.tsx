@@ -1,116 +1,106 @@
-import React from 'react';
-import { Button } from './button';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu, X } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { CartIcon } from "./cart-icon";
 
-interface HeaderProps {
-  className?: string;
+interface NavItem {
+  name: string;
+  href: string;
 }
 
-export const Header: React.FC<HeaderProps> = ({ className }) => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+const navigation: NavItem[] = [
+  { name: "About", href: "/about" },
+  { name: "Products", href: "/products" },
+  { name: "Contact", href: "/contact" },
+];
 
-  const navigationItems = [
-    { name: 'Products', href: '/products' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' }
-  ];
+export function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const { state } = useCart();
+
+  const cartItemsCount = state.items.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border",
-      "transition-all duration-300",
-      className
-    )}>
-      <div className="responsive-container">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo */}
-          <a href="/" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-90 transition-opacity">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm sm:text-lg">P</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display font-semibold text-lg sm:text-xl text-foreground">Powerlite</span>
-              <span className="text-xs text-muted-foreground font-medium tracking-wide hidden sm:block">ELECTRICALS</span>
-            </div>
-          </a>
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
+      <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Logo */}
+        <Link to="/" className="flex items-center space-x-2">
+          <div className="h-8 w-8 rounded-full bg-gradient-primary" />
+          <span className="font-display text-xl font-bold">Powerlite</span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-            {navigationItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-accent transition-colors duration-200 font-medium text-sm xl:text-base"
-              >
-                {item.name}
-              </a>
-            ))}
-          </nav>
-
-          {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
-            <Button variant="ghost" size="sm" className="hidden xl:flex" asChild>
-              <a href="/get-quote">Get Quote</a>
-            </Button>
-            <Button variant="default" size="sm" className="bg-gradient-accent text-xs sm:text-sm" asChild>
-              <a href="/contact-sales">Contact Sales</a>
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-2 lg:hidden">
-            <button
-              className="p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-8">
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              to={item.href}
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
-              <div className="w-5 h-5 sm:w-6 sm:h-6 flex flex-col justify-center space-y-1">
-                <span className={cn(
-                  "block w-full h-0.5 bg-foreground transition-all duration-300",
-                  isMenuOpen && "rotate-45 translate-y-1.5"
-                )} />
-                <span className={cn(
-                  "block w-full h-0.5 bg-foreground transition-all duration-300",
-                  isMenuOpen && "opacity-0"
-                )} />
-                <span className={cn(
-                  "block w-full h-0.5 bg-foreground transition-all duration-300",
-                  isMenuOpen && "-rotate-45 -translate-y-1.5"
-                )} />
-              </div>
-            </button>
-          </div>
-        </div>
+              {item.name}
+            </Link>
+          ))}
+        </nav>
 
-        {/* Mobile Menu */}
-        <div className={cn(
-          "lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
-          isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        )}>
-          <div className="py-4 sm:py-6 border-t border-border bg-background/95 backdrop-blur-md">
-            <nav className="flex flex-col space-y-3 sm:space-y-4">
-              {navigationItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-foreground hover:text-accent transition-colors duration-200 font-medium py-2 text-sm sm:text-base"
-                  onClick={() => setIsMenuOpen(false)}
+        {/* Cart and Mobile Menu */}
+        <div className="flex items-center space-x-4">
+          <Link to="/cart" className="relative">
+            <CartIcon className="h-6 w-6" />
+            {cartItemsCount > 0 && (
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs text-accent-foreground">
+                {cartItemsCount}
+              </span>
+            )}
+          </Link>
+
+          {/* Mobile Menu Trigger */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                onClick={() => setIsOpen(true)}
+              >
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <div className="flex items-center justify-between">
+                <Link to="/" className="flex items-center space-x-2">
+                  <div className="h-8 w-8 rounded-full bg-gradient-primary" />
+                  <span className="font-display text-xl font-bold">Powerlite</span>
+                </Link>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsOpen(false)}
                 >
-                  {item.name}
-                </a>
-              ))}
-              <div className="flex flex-col space-y-3 pt-4 border-t border-border/50">
-                <Button variant="ghost" size="sm" className="self-start" asChild>
-                  <a href="/get-quote">Get Quote</a>
-                </Button>
-                <Button variant="default" size="sm" className="bg-gradient-accent self-start" asChild>
-                  <a href="/contact-sales">Contact Sales</a>
+                  <X className="h-6 w-6" />
+                  <span className="sr-only">Close menu</span>
                 </Button>
               </div>
-            </nav>
-          </div>
+              
+              <nav className="mt-8 flex flex-col space-y-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
   );
-};
+}

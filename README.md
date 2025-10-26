@@ -36,6 +36,39 @@ npm i
 npm run dev
 ```
 
+## Email Functionality
+
+This project now includes email functionality for the Contact and Contact Sales pages.
+
+### Quick Start
+
+1. Configure your email settings in the `.env` file
+2. Start both servers: `npm run start:dev`
+3. Visit http://localhost:5173/contact
+
+### Detailed Setup
+
+For detailed setup instructions, see:
+- [STARTUP_GUIDE.md](STARTUP_GUIDE.md) - Complete startup guide
+- [EMAIL_SETUP.md](EMAIL_SETUP.md) - Email configuration details
+- [GMAIL_SETUP.md](GMAIL_SETUP.md) - Specific Gmail setup for no-reply-powerlote@gmail.com
+- [KAVISH_EMAIL_SETUP.md](KAVISH_EMAIL_SETUP.md) - Specific setup for kavishkhanna06@gmail.com
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Common issues and solutions
+- [NETWORK_TROUBLESHOOTING.md](NETWORK_TROUBLESHOOTING.md) - Network connectivity issues
+- [JSON_ERROR_TROUBLESHOOTING.md](JSON_ERROR_TROUBLESHOOTING.md) - JSON parsing errors
+- [EMAIL_TROUBLESHOOTING.md](EMAIL_TROUBLESHOOTING.md) - Email authentication issues
+- [PATH_RESOLUTION_FIX.md](PATH_RESOLUTION_FIX.md) - Fix for import path resolution errors
+
+### Features
+
+- Contact form submissions sent via email
+- Sales inquiry form submissions sent via email
+- Form validation and error handling
+- Loading states and user feedback
+- Comprehensive error logging
+- Proxy configuration for development
+- Testing utilities
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).

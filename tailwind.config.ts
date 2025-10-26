@@ -135,11 +135,29 @@ export default {
 				'fade-in': {
 					'0%': {
 						opacity: '0',
-						transform: 'translateY(20px)'
 					},
 					'100%': {
 						opacity: '1',
-						transform: 'translateY(0)'
+					}
+				},
+				'fade-in-left': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateX(-30px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateX(0)'
+					}
+				},
+				'fade-in-right': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateX(30px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateX(0)'
 					}
 				},
 				'fade-up': {
@@ -172,6 +190,36 @@ export default {
 						opacity: '1'
 					}
 				},
+				'slide-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(50px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'pop-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.8)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
+				},
+				'reveal': {
+					'0%': {
+						opacity: '0',
+						clipPath: 'inset(0 100% 0 0)'
+					},
+					'100%': {
+						opacity: '1',
+						clipPath: 'inset(0)'
+					}
+				},
 				'luxury-float': {
 					'0%, 100%': {
 						transform: 'translateY(0px)'
@@ -193,9 +241,14 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.6s ease-out',
+				'fade-in-left': 'fade-in-left 0.6s ease-out',
+				'fade-in-right': 'fade-in-right 0.6s ease-out',
 				'fade-up': 'fade-up 0.5s ease-out',
 				'scale-in': 'scale-in 0.3s ease-out',
 				'slide-left': 'slide-left 0.5s ease-out',
+				'slide-up': 'slide-up 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
+				'pop-in': 'pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+				'reveal': 'reveal 1s cubic-bezier(0.23, 1, 0.32, 1)',
 				'luxury-float': 'luxury-float 3s ease-in-out infinite',
 				'premium-pulse': 'premium-pulse 2s ease-in-out infinite'
 			}

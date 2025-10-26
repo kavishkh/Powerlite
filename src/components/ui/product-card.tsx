@@ -29,6 +29,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const [isWishlisted, setIsWishlisted] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    // Check if we're on mobile
+    setIsMobile(window.innerWidth < 640);
+    
+    // Add resize listener
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div 
@@ -122,7 +136,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Features - Show fewer on mobile */}
         <div className="space-y-1 mb-3 sm:mb-4 flex-grow">
-          {product.features.slice(0, window.innerWidth < 640 ? 1 : 2).map((feature, index) => (
+          {product.features.slice(0, isMobile ? 1 : 2).map((feature, index) => (
             <div key={index} className="flex items-center text-xs text-muted-foreground">
               <div className="w-1 h-1 bg-accent rounded-full mr-2 flex-shrink-0" />
               <span className="line-clamp-1">{feature}</span>

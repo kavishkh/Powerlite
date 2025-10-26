@@ -18,6 +18,7 @@ const ContactSales = () => {
     message: '',
     preferredContact: 'email'
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const inquiryTypes = [
     'Product Information',
@@ -55,12 +56,77 @@ const ContactSales = () => {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent Successfully",
-      description: "Our sales team will contact you within 4 hours during business hours.",
-    });
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/contact/sales', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      // Check if response is JSON before parsing
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const textResponse = await response.text();
+        console.error('Non-JSON response received:', textResponse);
+        throw new Error(`Server returned non-JSON response. Status: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        toast({
+          title: "Sales Inquiry Sent Successfully",
+          description: "Our sales team will contact you within 4 hours during business hours.",
+        });
+        // Reset form
+        setFormData({
+          inquiryType: '',
+          companyName: '',
+          contactName: '',
+          email: '',
+          phone: '',
+          country: '',
+          message: '',
+          preferredContact: 'email'
+        });
+      } else {
+        toast({
+          title: "Error Sending Inquiry",
+          description: result.message || "Failed to send sales inquiry. Please try again.",
+          variant: "destructive"
+        });
+        console.error('Server error:', result);
+      }
+    } catch (error: any) {
+      let errorMessage = "Failed to send sales inquiry. Please check your connection and try again.";
+      
+      if (error instanceof SyntaxError && error.message.includes('Unexpected end of JSON input')) {
+        errorMessage = "Network error: Unexpected end of JSON input. The server may be down or returning an error page.";
+      } else if (error instanceof TypeError) {
+        if (error.message.includes('fetch')) {
+          errorMessage = "Network error: Unable to connect to the server. Please ensure the backend is running.";
+        } else if (error.message.includes('Failed to fetch')) {
+          errorMessage = "Connection failed: Please check your internet connection and try again.";
+        }
+      } else if (error instanceof Error) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
+      toast({
+        title: "Network Error",
+        description: errorMessage,
+        variant: "destructive"
+      });
+      console.error('Network error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -261,9 +327,23 @@ const ContactSales = () => {
 
                 {/* Submit Button */}
                 <div className="flex justify-center pt-4">
-                  <Button type="submit" size="lg" className="bg-gradient-accent min-w-48">
-                    <Mail className="h-5 w-5 mr-2" />
-                    Send Message
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="bg-gradient-accent min-w-48"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></div>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Mail className="h-5 w-5 mr-2" />
+                        Send Message
+                      </>
+                    )}
                   </Button>
                 </div>
 
